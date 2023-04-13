@@ -1,10 +1,78 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
+  <th:block th:replace="/fragments/resources :: head"></th:block>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Dettagli foto</title>
 </head>
 <body>
+
+  <header>
+    <th:block th:replace="/fragments/navbar :: navbar('books', '', false)"></th:block>
+  </header>
+
+  <main>
+
+    <div class="container" th:object="${photo}">
+
+      <th:block th:if="${message}">
+        <div th:replace="~{/fragments/messages :: alert(${message.type}, ${message.text})}"></div>
+      </th:block>
+
+      <hr/>
+
+
+      <div class="row">
+
+        <div class="col-6">
+
+          <h4>Title</h4>
+          <p th:text="*{title}"></p>
+
+          <hr/>
+
+          <h4>Description</h4>
+          <p th:text="*{description}"></p>
+
+          <hr/>
+
+          <h4>Visibile</h4>
+          <p th:text="*{visible}"></p>
+
+          <hr/>
+
+
+        </div>
+
+        <div class="col-6">
+          <div class="h-100 position-relative">
+
+            <div class="btn btn-primary rounded-circle position-absolute bottom-0 end-0">
+              <i class="fa-solid fa-pen-to-square"></i>
+            </div>
+
+            <div th:if="${photo.url}" class="bg-secondary h-100 fs-1 d-flex justify-content-center align-items-center">
+              <i class="fa-solid fa-image"></i>
+            </div>
+
+            <div th:unless="${photo.url}">
+              <img class="img-fluid" th:src="{photo.url}" alt="book cover">
+            </div>
+          </div>
+        </div>
+
+
+      </div>
+
+        <!-- image -->
+
+      <!-- categories -->
+
+<!--      <th:block th:unless="${book.borrowings != null && book.borrowings.size() > 0}">-->
+<!--        <div th:replace="~{/fragments/messages :: alert('INFO', 'No borrowings yet')}"></div>-->
+<!--      </th:block>-->
+    </div>
+  </main>
 
 </body>
 </html>

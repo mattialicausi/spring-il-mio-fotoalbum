@@ -41,11 +41,11 @@ public class SecurityConfiguration {
 //    @Bean
 //    SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 //        http.authorizeHttpRequests()
-//                .requestMatchers("/categories", "/categories/**").hasAuthority("ADMIN")
-//                .requestMatchers("/borrowings/**").hasAuthority("ADMIN")
-//                .requestMatchers("/books/create", "/books/edit/**", "/books/delete/**")
+//                .requestMatchers("/categories", "/categories/**").hasAnyAuthority("ADMIN", "USER")
+//                .requestMatchers("/photos/**").hasAnyAuthority("ADMIN", "USER")
+//                .requestMatchers("/photos/create", "/photos/edit/**", "/photos/delete/**")
 //                .hasAuthority("ADMIN")
-//                .requestMatchers("/", "/books", "/books/**").hasAnyAuthority("USER", "ADMIN")
+//
 //                .requestMatchers(HttpMethod.POST, "/books/**").hasAuthority("ADMIN")
 //                .requestMatchers("/**").permitAll()
 //                .and().formLogin()

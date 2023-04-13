@@ -57,16 +57,16 @@ public class PhotoController {
 
     // controller per andare al dettaglio di una foto
 
-    @GetMapping("/${photoId}")
+    @GetMapping("/{photoId}")
     public String show(@PathVariable("photoId") Integer id, Model model, Authentication authentication) {
 
-        User loggedUser = userRepository.findByEmail(authentication.getName()).orElseThrow();
-        model.addAttribute("loggedUser", loggedUser);
+//        User loggedUser = userRepository.findByEmail(authentication.getName()).orElseThrow();
+//        model.addAttribute("loggedUser", loggedUser);
 
         try {
             Photo photo = photoService.getById(id);
             model.addAttribute("photo", photo);
-            return "/photo/show";
+            return "/photos/show";
         } catch (PhotoNotFoundException e) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Foto con id " + id + " non trovata");
         }
