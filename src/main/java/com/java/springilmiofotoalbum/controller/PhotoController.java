@@ -71,6 +71,15 @@ public class PhotoController {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Foto con id " + id + " non trovata");
         }
 
+    }
+
+    // controller per creare una nuova photo
+
+    @GetMapping("/create")
+    public String create(Model model) {
+
+        model.addAttribute("photo", new Photo());
+        model.addAttribute("categoryList", )
 
     }
 
