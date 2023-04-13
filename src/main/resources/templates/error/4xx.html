@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Error [[${status}]]</title>
+</head>
+<body class="bg-warning">
+
+    <div class="container text-center">
+
+        <h1 class="mt-5">
+            <i class="fa-solid fa-triangle-exclamation"></i> OOOPS Client error
+        </h1>
+
+        <p>
+            <a th:href="@{/}">Torna alla home page</a>
+        </p>
+
+    </div>
+
+    <div th:if="${exception}">
+        <!-- only in dev mode -->
+        <p th:text="${exception}"></p>
+        <p th:text="${trace}"></p>
+    </div>
+
+</body>
+</html>
