@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+
+  <th:block th:replace="/fragments/resources :: head"></th:block>
+
+    <meta charset="UTF-8">
+    <title>Foto</title>
+</head>
+<body>
+
+  <header>
+
+    <th:block th:replace="/fragments/navbar :: navbar('photos', ${keyword}, true)"></th:block>
+
+  </header>
+
+  <main>
+
+    <div class="container">
+      <h1>Foto
+        <a
+                th:href="@{/photos/create}"
+                class="btn btn-primary rounded-circle"
+                title="add photo"
+        >
+          <i class="fa-solid fa-plus"></i></a>
+      </h1>
+
+      <!-- leggo la variabile message (flashAttribute) -->
+
+<!--      <th:block th:if="${message}">-->
+<!--        <div th:replace="~{/fragments/messages :: alert(${message.type}, ${message.text})}"></div>-->
+<!--      </th:block>-->
+
+      <!-- books table only if list is not empty -->
+      <table class="table" th:if="${photoList.size() > 0}">
+        <thead>
+        <tr>
+          <th>Titolo</th>
+          <th>Descrizione</th>
+          <th>URL</th>
+          <th>Visibile</th>
+          <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="photo : ${photoList}" th:object="${photo}">
+          <td th:text="*{title}"></td>
+          <td th:text="*{description}"></td>
+          <td th:text="*{url}"></td>
+          <td th:text="*{visible}"></td>
+          <td>
+            <a th:href="@{|/photo/*{id}|}" class="btn btn-primary btn-sm" title="detail">Vai alla show</a>
+            <a th:href="@{|/photo/edit/*{id}|}"
+               class="btn btn-primary btn-sm" title="edit"><i
+                    class="fa-solid fa-pen-to-square"></i></a>
+<!--            <a-->
+<!--                    th:if="${book.categories == null || book.categories.size() == 0}"-->
+<!--                    th:href="@{|/photo/delete/*{id}|}"-->
+
+<!--                    class="btn btn-primary btn-sm"-->
+<!--                    title="Elimina"><i-->
+<!--                    class="fa-solid fa-trash-can"></i>-->
+<!--            </a>-->
+          </td>
+        </tr>
+        </tbody>
+      </table>
+      <!-- alert only if list is empty -->
+      <th:block th:unless="${photoList.size() > 0}">
+        <div th:replace="~{/fragments/messages :: alert('INFO', 'La lista è vuota')}"></div>
+      </th:block>
+    </div>
+
+  </main>
+
+</body>
+</html>
