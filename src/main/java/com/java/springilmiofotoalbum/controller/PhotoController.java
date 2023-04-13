@@ -4,17 +4,17 @@ import com.java.springilmiofotoalbum.exceptions.PhotoNotFoundException;
 import com.java.springilmiofotoalbum.model.Photo;
 import com.java.springilmiofotoalbum.model.User;
 import com.java.springilmiofotoalbum.repository.UserRepository;
+import com.java.springilmiofotoalbum.service.CategoryService;
 import com.java.springilmiofotoalbum.service.PhotoService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.Banner;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
@@ -31,6 +31,9 @@ public class PhotoController {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private CategoryService categoryService;
 
 // controller per restituire alla view tutte le photo
 
@@ -66,6 +69,8 @@ public class PhotoController {
         try {
             Photo photo = photoService.getById(id);
             model.addAttribute("photo", photo);
+            model.addAttribute("categories", photo.getCategories());
+
             return "/photos/show";
         } catch (PhotoNotFoundException e) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Foto con id " + id + " non trovata");
@@ -79,8 +84,27 @@ public class PhotoController {
     public String create(Model model) {
 
         model.addAttribute("photo", new Photo());
-        model.addAttribute("categoryList", )
+        model.addAttribute("categories", categoryService.getAll());
 
+        return "/photos/create";
+
+    }
+
+    @PostMapping("/create")
+    public String doCreate(@Valid @ModelAttribute("photo") Photo formPhoto, BindingResult bindingResult, Model model) {
+
+        // VALIDATION
+        boolean hasErrors = bindingResult.hasErrors();
+
+        if (hasErrors) {
+
+            model.addAttribute("categories", categoryService.getAll());
+
+            return "/photos/create";
+        }
+
+        photoService.createPhoto(formPhoto);
+        return "redirect:/photos";
     }
 
 }

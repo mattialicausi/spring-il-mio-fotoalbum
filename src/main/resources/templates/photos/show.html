@@ -41,7 +41,6 @@
 
           <hr/>
 
-
         </div>
 
         <div class="col-6">
@@ -61,16 +60,17 @@
           </div>
         </div>
 
-
       </div>
 
-        <!-- image -->
 
       <!-- categories -->
 
-<!--      <th:block th:unless="${book.borrowings != null && book.borrowings.size() > 0}">-->
-<!--        <div th:replace="~{/fragments/messages :: alert('INFO', 'No borrowings yet')}"></div>-->
-<!--      </th:block>-->
+      <h2>Categorie</h2>
+      <div>
+        <p th:each="ing : ${categories}" th:text="${ing.name}"></p>
+      </div>
+
+      <div th:if="${photo.categories.size() == 0 || photo.categories == null}">Ancora nessuna categoria</div>
     </div>
   </main>
 

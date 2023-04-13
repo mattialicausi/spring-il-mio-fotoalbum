@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:replace="/fragments/resources :: head"></th:block>
+    <meta charset="UTF-8">
+    <title>Nuova foto</title>
+</head>
+
+<body>
+
+<header class="container">
+  <th:block th:replace="/fragments/navbar :: navbar('create', '', false)"></th:block>
+</header>
+
+
+
+<div class="container">
+
+  <h1>Aggiungi una nuova foto</h1>
+
+  <form id="new-foto-form" class="row gy-3 mt-3" method="post" th:object="${photo}" th:action="@{/photos/create}">
+    <div class="col-6">
+      <div class="col-6">
+        <!-- title -->
+        <div class="col-6">
+          <label class="form-label" for="title">Title*</label>
+          <input type="text" id="title" class="form-control" th:field="*{title}"
+                 th:errorClass="is-invalid">
+          <div class="invalid-feedback" th:if="${#fields.hasErrors('title')}">
+            <ul>
+              <li th:each="err : ${#fields.errors('name')}" th:text="${err}"></li>
+            </ul>
+          </div>
+        </div>
+
+        <!--      description      -->
+        <div class="col-12">
+          <label class="form-label" for="description">Description*</label>
+          <textarea id="description" class="form-control" th:field="*{description}"
+                    th:errorClass="is-invalid" rows="3"></textarea>
+          <div class="invalid-feedback" th:if="${#fields.hasErrors('description')}">
+            <ul>
+              <li th:each="err : ${#fields.errors('description')}" th:text="${err}"></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!--      visible      -->
+      <div class="col-12">
+        <label class="form-label" for="visible">Visible*</label>
+        <textarea id="description" class="form-control" th:field="*{visible}"
+                  th:errorClass="is-invalid" rows="3"></textarea>
+        <div class="invalid-feedback" th:if="${#fields.hasErrors('visible')}">
+          <ul>
+            <li th:each="err : ${#fields.errors('visible')}" th:text="${err}"></li>
+          </ul>
+        </div>
+      </div>
+
+
+      <!--  url -->
+      <div class="col-12">
+        <label class="form-label" for="url">Url*</label>
+        <input type="text" id="url" class="form-control" th:field="*{url}"
+               th:errorClass="is-invalid">
+
+      </div>
+    </div>
+
+
+
+    <div class="col-6">
+      <h2 class="my-3">Aggiungi le categorie</h2>
+
+      <div class="form-check" th:each="ing : ${categories}">
+        <input class="form-check-input" type="checkbox" th:value="${ing.id}"
+               th:id="|ing_${ing.id}|" th:field="*{categories}">
+        <label class="form-check-label" th:for="|ing_${ing.id}|" th:text="${ing.name}"></label>
+      </div>
+    </div>
+
+    <div class="col-3">
+      <button type="submit" class="btn btn-primary">Salva</button>
+    </div>
+
+
+  </form>
+</div>
+
+</body>
+
+</html>
