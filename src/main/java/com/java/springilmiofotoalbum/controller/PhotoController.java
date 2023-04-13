@@ -107,4 +107,49 @@ public class PhotoController {
         return "redirect:/photos";
     }
 
+    // controller per modificare una photo
+    @GetMapping("/edit/{id}")
+    public String edit(@PathVariable("id") Integer id, Model model) {
+
+        try {
+
+            Photo photo = photoService.getById(id);
+            model.addAttribute("photo", photo);
+            model.addAttribute("categories", categoryService.getAll());
+
+            return "/photos/edit";
+
+        } catch (PhotoNotFoundException e) {
+
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Foto con id " + id + " non trovata");
+
+        }
+
+
+    }
+
+    @PostMapping("/edit/{id}")
+    public String update(@PathVariable Integer id, @Valid @ModelAttribute("photo") Photo formPhoto, BindingResult bindingResult, Model model) {
+
+        if (bindingResult.hasErrors()) {
+
+            model.addAttribute("categories", categoryService.getAll());
+            return "/photos/edit";
+
+        }
+
+        try {
+
+            Photo updatePhoto = photoService.updatePhoto(formPhoto, id);
+            return "redirect:/photos/" + Integer.toString(updatePhoto.getId());
+
+        } catch (Exception e) {
+
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Foto con id " + id + "non trovata");
+
+        }
+
+
+    }
+
 }

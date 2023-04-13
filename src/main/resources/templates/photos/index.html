@@ -52,11 +52,11 @@
           <td th:text="*{visible}"></td>
           <td>
             <a th:href="@{|/photos/*{id}|}" class="btn btn-primary btn-sm" title="detail">Vai alla show</a>
-            <a th:href="@{|/photo/edit/*{id}|}"
+            <a th:href="@{|/photos/edit/${photo.id}|}"
                class="btn btn-primary btn-sm" title="edit"><i
                     class="fa-solid fa-pen-to-square"></i></a>
 <!--            <a-->
-<!--                    th:if="${book.categories == null || book.categories.size() == 0}"-->
+<!--                    th:if="${photos.categories == null || book.categories.size() == 0}"-->
 <!--                    th:href="@{|/photo/delete/*{id}|}"-->
 
 <!--                    class="btn btn-primary btn-sm"-->

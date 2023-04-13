@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.List;
@@ -22,7 +23,7 @@ public class PhotoService {
     @Autowired
     PhotoRepository photoRepository;
     @Autowired
-    CategoryRepository categoryRepository;
+    private CategoryRepository categoryRepository;
 
     // metodi
 
@@ -71,15 +72,38 @@ public class PhotoService {
 
     }
 
+    // metodo per modificare una photo
+
+    public Photo updatePhoto(Photo formPhoto, Integer id) {
+
+        Photo photoToPersist = getById(id);
+
+        photoToPersist.setTitle(formPhoto.getTitle());
+        photoToPersist.setDescription(formPhoto.getDescription());
+        photoToPersist.setUrl(formPhoto.getUrl());
+        photoToPersist.setVisible(formPhoto.getVisible());
+
+        Set<Category> formCategories = getPhotoCategories(formPhoto);
+        photoToPersist.setCategories(formCategories);
+
+
+        return photoRepository.save(photoToPersist);
+
+    }
+
 
     // metodo per prendere le categorie di una photo
     private Set<Category> getPhotoCategories(Photo formPhoto) {
         Set<Category> formCategories = new HashSet<>();
+
         if (formPhoto.getCategories() != null) {
+
             for (Category c : formPhoto.getCategories()) {
                 formCategories.add(categoryRepository.findById(c.getId()).orElseThrow());
             }
+
         }
+
         return formCategories;
     }
 
