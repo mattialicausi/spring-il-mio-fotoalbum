@@ -16,13 +16,15 @@ const getPhoto = async () => {
 const createSingleItem = (item) => {
 
     return `
-    <div class="card h-100 col-4" style="width: 18rem;">
-        <img class="h-50" src="${item.url}" class="card-img-top" alt="${item.title}">
-        <div class="card-body">
-            <div class="d-flex align-items-center justify-content-between">
-                <h5 class="card-title">${item.title}</h5>
+    <div class="col-4">
+        <div class="card h-100" style="width: 18rem;">
+            <img class="h-50" src="${item.url}" class="card-img-top" alt="${item.title}">
+            <div class="card-body">
+                <div class="d-flex align-items-center justify-content-between">
+                    <h4 class="card-title">${item.title}</h4>
+                </div>
+                <p class="card-text">${item.description}.</p>
             </div>
-            <p class="card-text">${item.description}.</p>
         </div>
     </div>
     
