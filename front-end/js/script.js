@@ -2,6 +2,8 @@
 
 const domContainerList = document.getElementById('dom-container-list');
 const BASE_URL = 'http://localhost:8080/api/v1/photos';
+const formSearch = document.getElementById('form-search'); 
+
 
 // METODI
 
@@ -53,7 +55,36 @@ const loadAllPhoto = async () => {
     }
 }
 
+function filterByTitle(photo) {
+    const inputSearch = document.getElementById('input-search-name');
+    const inputSearchValue = inputSearch.value;
+  
+    if (inputSearchValue) {
+        const filteredList = photo.filter((element) =>
+        element.title.toLowerCase().includes(inputSearchValue.toLowerCase())
+      );
+      console.log(filteredList);
+      return filteredList;
+
+    } else {
+        loadAllPhoto();
+    }
+  }
+
+  formSearch.addEventListener("submit", async (event) => {
+
+    event.preventDefault();
+
+    const allPhoto = await getPhoto();
+    const allPhotoData = await allPhoto.json();
+    const filteredList = filterByTitle(allPhotoData);
+    domContainerList.innerHTML = createPhotoList(filteredList);
+    console.log("fatto");
+  });
+
 
 // RICHIAMO METODI
+
+
 
 loadAllPhoto();
