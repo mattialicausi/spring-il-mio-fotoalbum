@@ -42,6 +42,20 @@ public class PhotoService {
 
     }
 
+    // prendo le photo filtrate per visibilità e nome
+    public List<Photo> getPhotoVisibleTrueAndName(String search) {
+
+        return photoRepository.findByTitleContainingIgnoreCaseAndVisible(search, true);
+
+    }
+
+    // prendo le photo filtrate per visibilità
+    public List<Photo> getPhotoVisibleTrue() {
+        return photoRepository.findByVisible(true);
+    }
+
+
+
     // prendo la singola photo per id
 
     public Photo getById(Integer id) throws PhotoNotFoundException {

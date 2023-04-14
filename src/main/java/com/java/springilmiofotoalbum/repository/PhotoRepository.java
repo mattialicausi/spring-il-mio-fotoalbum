@@ -12,4 +12,11 @@ public interface PhotoRepository extends JpaRepository<Photo, Integer> {
     // query che filtra per nome
     public List<Photo> findByTitleContainingIgnoreCase(String title);
 
+    // query che filtra per visibilità
+    public List<Photo> findByVisible(boolean visible);
+
+    // query che filtra per visibility e per nome
+    public List<Photo> findByTitleContainingIgnoreCaseAndVisible(String title, boolean visible);
+
+
 }
