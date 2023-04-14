@@ -20,6 +20,12 @@
             <a class="nav-link" th:href="@{/categories}" th:classAppend="${current == 'categories'} ? active : '' ">Categorie</a>
           </li>
 
+          <li class="nav-item">
+            <a class="btn btn-primary" href="http://127.0.0.1:5500/front-end/index.html">Client side</a>
+          </li>
+
+
+
         </ul>
         <form class="d-flex" role="search">
           <input class="form-control me-2" type="search" placeholder="Cerca" name="q" th:value="${keyword}" aria-label="Search">

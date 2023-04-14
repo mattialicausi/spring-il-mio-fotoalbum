@@ -1,6 +1,9 @@
-INSERT INTO db_fotoalbum.photos (description, title, url, visible) VALUES('Foto Roma', 'Roma', '', 0);
-INSERT INTO db_fotoalbum.photos (description, title, url, visible) VALUES('Foto Parigi', 'Parigi', '', 0);
-INSERT INTO db_fotoalbum.photos (description, title, url, visible) VALUES('Foto Amsterdam', 'Amsterdam', '', 0);
+INSERT INTO db_fotoalbum.photos (description, title, url, visible) VALUES('Foto Roma', 'Roma', '', 1);
+INSERT INTO db_fotoalbum.photos (description, title, url, visible) VALUES('Foto Parigi', 'Parigi', '', 1);
+INSERT INTO db_fotoalbum.photos (description, title, url, visible) VALUES('Foto Dublino', 'Dublino', '', 1);
+INSERT INTO db_fotoalbum.photos (description, title, url, visible) VALUES('Foto Palermo', 'Palermo', '', 1);
+INSERT INTO db_fotoalbum.photos (description, title, url, visible) VALUES('Foto Firenze', 'Firenze', '', 0);
+INSERT INTO db_fotoalbum.photos (description, title, url, visible) VALUES('Foto Bologna', 'Bologna', '', 0);
 
 INSERT INTO db_fotoalbum.categories (name) VALUES('Eventi');
 INSERT INTO db_fotoalbum.categories (name) VALUES('Ritratto');
