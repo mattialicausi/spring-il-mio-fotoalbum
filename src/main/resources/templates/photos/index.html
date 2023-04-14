@@ -49,7 +49,7 @@
           <td th:text="*{title}"></td>
           <td th:text="*{description}"></td>
           <td th:text="*{url}"></td>
-          <td th:text="*{visible}"></td>
+          <td th:text="${photo.visible == true} ? 'Si' : 'No' "></td>
           <td>
             <a th:href="@{|/photos/*{id}|}" class="btn btn-primary btn-sm" title="detail">Vai alla show</a>
             <a th:href="@{|/photos/edit/${photo.id}|}"
