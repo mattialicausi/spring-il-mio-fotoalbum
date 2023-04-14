@@ -15,16 +15,17 @@ public class Photo {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @NotEmpty
+    @NotEmpty(message = "Il titolo deve essere inserito")
     private String title;
 
     @Lob
     private String description;
 
     @Lob
+    @NotEmpty(message = "Url deve essere inserito")
     private String url;
 
-    @NotNull
+    @NotNull(message = "true o false")
     private boolean visible;
 
     // relazioni

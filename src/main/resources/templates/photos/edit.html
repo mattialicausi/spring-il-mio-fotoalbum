@@ -19,6 +19,12 @@
     <h1>Modifica la foto</h1>
 
     <form id="new-foto-form" class="row gy-3 mt-3" method="post" th:object="${photo}" th:action="@{|/photos/edit/${photo.id}|}">
+
+        <!-- errors -->
+        <ul>
+            <li th:each="err : ${#fields.globalErrors() }" th:text="${err}"></li>
+        </ul>
+
         <div class="col-6">
             <div class="col-6">
                 <!-- title -->
@@ -39,18 +45,39 @@
                     <textarea id="description" class="form-control" th:field="*{description}"
                               th:errorClass="is-invalid" rows="3"></textarea>
                     <div class="invalid-feedback" th:if="${#fields.hasErrors('description')}">
-                        <ul>
-                            <li th:each="err : ${#fields.errors('description')}" th:text="${err}"></li>
-                        </ul>
+                        <div class="invalid-feedback" th:if="${#fields.hasErrors('description')}">
+                            <ul>
+                                <li th:each="err : ${#fields.errors('description')}" th:text="${err}"></li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </div>
 
             <!--      visible      -->
-            <div class="col-12">
-                <label class="form-label" for="visible">Visible*</label>
-                <textarea id="visible" class="form-control" th:field="*{visible}"
-                          th:errorClass="is-invalid" rows="3"></textarea>
+<!--            <div class="col-12">-->
+<!--                <label class="form-label" for="visible">Visible*</label>-->
+<!--                <textarea id="visible" class="form-control" th:field="*{visible}"-->
+<!--                          th:errorClass="is-invalid" rows="3"></textarea>-->
+<!--                <div class="invalid-feedback" th:if="${#fields.hasErrors('visible')}">-->
+<!--                    <ul>-->
+<!--                        <li th:each="err : ${#fields.errors('visible')}" th:text="${err}"></li>-->
+<!--                    </ul>-->
+<!--                </div>-->
+<!--            </div>-->
+
+            <div class="col-12 my-4">
+                <label class="form-label" for="visible">Visibile*</label>
+                <div class="d-flex">
+                    <div>
+                        <input type="radio" id="visible-yes" name="visible" value="true" checked>
+                        <label for="visible-yes">Sì</label>
+                    </div>
+                    <div class="ms-4">
+                        <input type="radio" id="visible-no" name="visible" value="false">
+                        <label for="visible-no">No</label>
+                    </div>
+                </div>
                 <div class="invalid-feedback" th:if="${#fields.hasErrors('visible')}">
                     <ul>
                         <li th:each="err : ${#fields.errors('visible')}" th:text="${err}"></li>
@@ -62,10 +89,14 @@
             <!--  url -->
             <div class="col-12">
                 <label class="form-label" for="url">Url*</label>
-                <input type="text" id="url" class="form-control" th:field="*{url}"
-                       th:errorClass="is-invalid">
-
+                <input type="text" id="url" class="form-control" th:field="*{url}" th:errorClass="is-invalid">
+                <div class="invalid-feedback" th:if="${#fields.hasErrors('url')}">
+                    <ul>
+                        <li th:each="err : ${#fields.errors('url')}" th:text="${err}"></li>
+                    </ul>
+                </div>
             </div>
+
         </div>
 
 
