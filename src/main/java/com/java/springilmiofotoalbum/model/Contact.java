@@ -3,7 +3,6 @@ package com.java.springilmiofotoalbum.model;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
-import org.springframework.web.bind.annotation.RequestMapping;
 
 @Entity
 @Table(name = "contacts")
@@ -13,8 +12,8 @@ public class Contact {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @NotEmpty
-    private Email email;
+    @Column(nullable = false)
+    private String email;
 
     @NotEmpty
     private String message;
@@ -23,7 +22,7 @@ public class Contact {
         super();
     }
 
-    public Contact(Email email, String message) {
+    public Contact(String email, String message) {
         this.email = email;
         this.message = message;
     }
@@ -36,11 +35,11 @@ public class Contact {
         this.id = id;
     }
 
-    public Email getEmail() {
+    public String getEmail() {
         return email;
     }
 
-    public void setEmail(Email email) {
+    public void setEmail(String email) {
         this.email = email;
     }
 
