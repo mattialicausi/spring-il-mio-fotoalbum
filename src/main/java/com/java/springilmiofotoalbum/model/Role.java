@@ -1,16 +1,17 @@
 package com.java.springilmiofotoalbum.model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
+
+import java.util.List;
 
 @Entity
 @Table(name = "roles")
 public class Role {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+
     @Column(nullable = false, unique = true)
     private String name;
 
@@ -29,4 +30,5 @@ public class Role {
     public void setName(String name) {
         this.name = name;
     }
+
 }

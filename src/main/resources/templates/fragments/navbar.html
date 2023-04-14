@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
 
 <body>
 
@@ -24,6 +25,10 @@
           <input class="form-control me-2" type="search" placeholder="Cerca" name="q" th:value="${keyword}" aria-label="Search">
           <button class="btn btn-outline-success" type="submit">Cerca</button>
         </form>
+        <div class="ms-3">
+          <span sec:authentication="name"></span>
+          <a class="btn btn-info" th:href="@{/logout}">Logout</a>
+        </div>
       </div>
     </div>
   </nav>

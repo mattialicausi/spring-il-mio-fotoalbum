@@ -65,8 +65,8 @@ public class PhotoController {
     @GetMapping("/{photoId}")
     public String show(@PathVariable("photoId") Integer id, Model model, Authentication authentication) {
 
-//        User loggedUser = userRepository.findByEmail(authentication.getName()).orElseThrow();
-//        model.addAttribute("loggedUser", loggedUser);
+        User loggedUser = userRepository.findByEmail(authentication.getName()).orElseThrow();
+        model.addAttribute("loggedUser", loggedUser);
 
         try {
             Photo photo = photoService.getById(id);

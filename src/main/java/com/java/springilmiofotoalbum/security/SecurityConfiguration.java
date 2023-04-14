@@ -38,20 +38,16 @@ public class SecurityConfiguration {
     /*
      * All "/**", ADMIN
      * */
-//    @Bean
-//    SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-//        http.authorizeHttpRequests()
-//                .requestMatchers("/categories", "/categories/**").hasAnyAuthority("ADMIN", "USER")
-//                .requestMatchers("/photos/**").hasAnyAuthority("ADMIN", "USER")
-//                .requestMatchers("/photos/create", "/photos/edit/**", "/photos/delete/**")
-//                .hasAuthority("ADMIN")
-//
-//                .requestMatchers(HttpMethod.POST, "/books/**").hasAuthority("ADMIN")
-//                .requestMatchers("/**").permitAll()
-//                .and().formLogin()
-//                .and().logout()
-//                .and().exceptionHandling();
-//        http.csrf().disable();
-//        return http.build();
-//    }
+    @Bean
+    SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+        http.authorizeHttpRequests()
+                .requestMatchers("/**").hasAuthority("ADMIN")
+                .requestMatchers("/api/**").permitAll()
+                .and().formLogin()
+                .and().logout()
+                .and().exceptionHandling();
+        http.csrf().disable();
+        return http.build();
+    }
+
 }

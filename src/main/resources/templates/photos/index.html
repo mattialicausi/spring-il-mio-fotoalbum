@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
 <head>
 
   <th:block th:replace="/fragments/resources :: head"></th:block>
@@ -23,6 +24,7 @@
                 th:href="@{/photos/create}"
                 class="btn btn-primary rounded-circle"
                 title="add photo"
+                sec:authorize="hasAuthority('ADMIN')"
         >
           <i class="fa-solid fa-plus"></i></a>
       </h1>
@@ -51,8 +53,9 @@
           <td th:text="*{url}"></td>
           <td th:text="${photo.visible == true} ? 'Si' : 'No' "></td>
           <td>
-            <a th:href="@{|/photos/*{id}|}" class="btn btn-primary btn-sm" title="detail">Vai alla show</a>
+            <a th:href="@{|/photos/*{id}|}" class="btn btn-primary btn-sm" title="detail" sec:authorize="hasAuthority('ADMIN')">Vai alla show</a>
             <a th:href="@{|/photos/edit/${photo.id}|}"
+               sec:authorize="hasAuthority('ADMIN')"
                class="btn btn-primary btn-sm" title="edit"><i
                     class="fa-solid fa-pen-to-square"></i></a>
             <a
@@ -61,6 +64,7 @@
 
                     class="btn btn-primary btn-sm"
                     title="Elimina"><i
+                    sec:authorize="hasAuthority('ADMIN')"
                     class="fa-solid fa-trash-can"></i>
             </a>
           </td>
