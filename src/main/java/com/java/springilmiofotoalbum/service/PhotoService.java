@@ -74,20 +74,20 @@ public class PhotoService {
 
     // metodo per modificare una photo
 
-    public Photo updatePhoto(Photo formPhoto, Integer id) {
+    public Photo updatePhoto(Photo formPhoto, Integer id) throws PhotoNotFoundException {
 
-        Photo photoToPersist = getById(id);
+        Photo photoToUpdate = getById(id);
 
-        photoToPersist.setTitle(formPhoto.getTitle());
-        photoToPersist.setDescription(formPhoto.getDescription());
-        photoToPersist.setUrl(formPhoto.getUrl());
-        photoToPersist.setVisible(formPhoto.getVisible());
+        photoToUpdate.setTitle(formPhoto.getTitle());
+        photoToUpdate.setDescription(formPhoto.getDescription());
+        photoToUpdate.setUrl(formPhoto.getUrl());
+        photoToUpdate.setVisible(formPhoto.getVisible());
 
         Set<Category> formCategories = getPhotoCategories(formPhoto);
-        photoToPersist.setCategories(formCategories);
+        photoToUpdate.setCategories(formCategories);
 
 
-        return photoRepository.save(photoToPersist);
+        return photoRepository.save(photoToUpdate);
 
     }
 

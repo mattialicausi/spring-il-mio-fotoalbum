@@ -129,7 +129,7 @@ public class PhotoController {
     }
 
     @PostMapping("/edit/{id}")
-    public String update(@PathVariable Integer id, @Valid @ModelAttribute("photo") Photo formPhoto, BindingResult bindingResult, Model model) {
+    public String doEdit(@PathVariable Integer id, @Valid @ModelAttribute("photo") Photo formPhoto, BindingResult bindingResult, Model model) {
 
         if (bindingResult.hasErrors()) {
 
@@ -143,7 +143,7 @@ public class PhotoController {
             Photo updatePhoto = photoService.updatePhoto(formPhoto, id);
             return "redirect:/photos/" + Integer.toString(updatePhoto.getId());
 
-        } catch (Exception e) {
+        } catch (PhotoNotFoundException e) {
 
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Foto con id " + id + "non trovata");
 

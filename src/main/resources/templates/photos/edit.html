@@ -18,7 +18,7 @@
 
     <h1>Modifica la foto</h1>
 
-    <form id="new-foto-form" class="row gy-3 mt-3" method="post" th:object="${photo}" th:action="@{|/photo/edit/${photo.id}|}">
+    <form id="new-foto-form" class="row gy-3 mt-3" method="post" th:object="${photo}" th:action="@{|/photos/edit/${photo.id}|}">
         <div class="col-6">
             <div class="col-6">
                 <!-- title -->
@@ -28,7 +28,7 @@
                            th:errorClass="is-invalid">
                     <div class="invalid-feedback" th:if="${#fields.hasErrors('title')}">
                         <ul>
-                            <li th:each="err : ${#fields.errors('name')}" th:text="${err}"></li>
+                            <li th:each="err : ${#fields.errors('title')}" th:text="${err}"></li>
                         </ul>
                     </div>
                 </div>
@@ -49,7 +49,7 @@
             <!--      visible      -->
             <div class="col-12">
                 <label class="form-label" for="visible">Visible*</label>
-                <textarea id="description" class="form-control" th:field="*{visible}"
+                <textarea id="visible" class="form-control" th:field="*{visible}"
                           th:errorClass="is-invalid" rows="3"></textarea>
                 <div class="invalid-feedback" th:if="${#fields.hasErrors('visible')}">
                     <ul>
