@@ -91,6 +91,17 @@ public class PhotoService {
 
     }
 
+    // metodo per cancellare tramite l'id una photo
+    public boolean deleteById(Integer id) throws PhotoNotFoundException {
+        photoRepository.findById(id).orElseThrow(() -> new PhotoNotFoundException(Integer.toString(id)));
+        try {
+            photoRepository.deleteById(id);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
 
     // metodo per prendere le categorie di una photo
     private Set<Category> getPhotoCategories(Photo formPhoto) {

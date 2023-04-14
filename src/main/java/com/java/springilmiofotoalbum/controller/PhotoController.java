@@ -1,6 +1,7 @@
 package com.java.springilmiofotoalbum.controller;
 
 import com.java.springilmiofotoalbum.exceptions.PhotoNotFoundException;
+import com.java.springilmiofotoalbum.model.AlertMessage;
 import com.java.springilmiofotoalbum.model.Photo;
 import com.java.springilmiofotoalbum.model.User;
 import com.java.springilmiofotoalbum.repository.UserRepository;
@@ -16,6 +17,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 import java.util.Optional;
@@ -150,6 +152,31 @@ public class PhotoController {
         }
 
 
+    }
+
+    // controller per eliminare una photo
+
+    @GetMapping("/delete/{id}")
+    public String delete(@PathVariable Integer id, RedirectAttributes redirectAttributes) {
+        try {
+            boolean success = photoService.deleteById(id);
+            if (success) {
+                redirectAttributes.addFlashAttribute("message",
+                        new AlertMessage(AlertMessage.AlertMessageType.SUCCESS, "Foto con id " + id + " cancellata"));
+
+            } else {
+        /*throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR,
+            "Unable to delete book with id " + id);*/
+                redirectAttributes.addFlashAttribute("message",
+                        new AlertMessage(AlertMessage.AlertMessageType.ERROR, "Non posso cancellare la foto con id " + id));
+            }
+
+        } catch (PhotoNotFoundException e) {
+            //throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+            redirectAttributes.addFlashAttribute("message",
+                    new AlertMessage(AlertMessage.AlertMessageType.ERROR, "Foto con id " + id + " non trovata"));
+        }
+        return "redirect:/photos";
     }
 
 }
