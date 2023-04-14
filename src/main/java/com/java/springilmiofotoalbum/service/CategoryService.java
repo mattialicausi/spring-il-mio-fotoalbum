@@ -1,5 +1,7 @@
 package com.java.springilmiofotoalbum.service;
 
+import com.java.springilmiofotoalbum.exceptions.CategoryNotFoundException;
+import com.java.springilmiofotoalbum.exceptions.PhotoNotFoundException;
 import com.java.springilmiofotoalbum.model.Category;
 import com.java.springilmiofotoalbum.repository.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,6 +35,17 @@ public class CategoryService {
 
     public Category getById(Integer id) {
         return categoryRepository.findById(id).orElseThrow(() -> new RuntimeException());
+    }
+
+    // metodo per cancellare tramite l'id una photo
+    public boolean deleteById(Integer id) {
+        categoryRepository.findById(id).orElseThrow(() -> new CategoryNotFoundException(Integer.toString(id)));
+        try {
+            categoryRepository.deleteById(id);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
     }
 
 }
