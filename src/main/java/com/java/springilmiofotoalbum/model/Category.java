@@ -1,7 +1,10 @@
 package com.java.springilmiofotoalbum.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
+
+import java.util.List;
 
 @Entity
 @Table(name = "categories")
@@ -15,6 +18,11 @@ public class Category {
     @Column(nullable = false)
     @NotBlank
     private String name;
+
+    //relazioni
+    @ManyToMany(mappedBy = "categories")
+    @JsonIgnore
+    private List<Photo> Photo;
 
 
     // getter e setter

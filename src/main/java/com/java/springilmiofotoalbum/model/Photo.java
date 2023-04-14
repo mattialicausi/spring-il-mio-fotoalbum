@@ -1,8 +1,10 @@
 package com.java.springilmiofotoalbum.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
+import org.hibernate.validator.constraints.URL;
 
 import java.util.Set;
 
@@ -21,7 +23,7 @@ public class Photo {
     @Lob
     private String description;
 
-    @Lob
+    @URL(message = "Il path deve essere valido")
     @NotEmpty(message = "Url deve essere inserito")
     private String url;
 
@@ -36,6 +38,7 @@ public class Photo {
             joinColumns = @JoinColumn(name = "photo_id"),
             inverseJoinColumns = @JoinColumn(name = "category_id")
     )
+    @JsonIgnore
     private Set<Category> categories;
 
     // costruttori
