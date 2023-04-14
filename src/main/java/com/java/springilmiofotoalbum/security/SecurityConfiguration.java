@@ -9,6 +9,9 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 @Configuration
 public class SecurityConfiguration {
@@ -41,13 +44,31 @@ public class SecurityConfiguration {
     @Bean
     SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests()
-                .requestMatchers("/**").hasAuthority("ADMIN")
-                .requestMatchers("/api/**").permitAll()
+                .requestMatchers("/categories", "/categories/**").hasAuthority("ADMIN")
+                .requestMatchers("/borrowings/**").hasAuthority("ADMIN")
+                .requestMatchers("/books/create", "/books/edit/**", "/books/delete/**")
+                .hasAuthority("ADMIN")
+                .requestMatchers("/", "/books", "/books/**").hasAnyAuthority("USER", "ADMIN")
+                .requestMatchers(HttpMethod.POST, "/books/**").hasAuthority("ADMIN")
+                .requestMatchers("/**").permitAll()
                 .and().formLogin()
                 .and().logout()
-                .and().exceptionHandling();
+                .and().exceptionHandling()
+                .and().cors(); // Aggiungi questo metodo per abilitare CORS
         http.csrf().disable();
         return http.build();
     }
+
+    @Bean
+    CorsConfigurationSource corsConfigurationSource() {
+        CorsConfiguration configuration = new CorsConfiguration();
+        configuration.addAllowedOrigin("http://127.0.0.1:5500");
+        configuration.addAllowedMethod("*");
+        configuration.addAllowedHeader("*");
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", configuration);
+        return source;
+    }
+
 
 }
