@@ -19,7 +19,7 @@ public class Contact {
     @NotEmpty
     private String message;
 
-    private Contact() {
+    public Contact() {
         super();
     }
 
