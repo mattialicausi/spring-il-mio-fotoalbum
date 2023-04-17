@@ -52,14 +52,16 @@
      
       <section>
 
-        <form id="contact-form">
+        <form id="contact-form" action="#">
+
             <div class="mb-3">
-                <label for="exampleFormControlInput1" class="form-label">Email address</label>
-                <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
+                <label for="email" class="form-label">Email*</label>
+                <input required type="email" class="form-control" id="email" name="email" placeholder="name@example.com">
               </div>
+
               <div class="mb-3">
-                <label for="exampleFormControlTextarea1" class="form-label">Example textarea</label>
-                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                <label for="message" class="form-label">Inserisci il messaggio*</label>
+                <textarea required class="form-control" id="message" name="message" rows="3"></textarea>
               </div>
 
               <div class="col-4">
