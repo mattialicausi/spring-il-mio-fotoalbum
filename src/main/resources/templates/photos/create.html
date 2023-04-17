@@ -16,7 +16,7 @@
 
 <div class="container">
 
-  <h1>Aggiungi una nuova foto</h1>
+  <h1 class="my-4">Aggiungi una nuova foto</h1>
 
   <form id="new-foto-form" class="row gy-3 mt-3" method="post" th:object="${photo}" th:action="@{/photos/create}">
     <div class="col-6">
@@ -48,17 +48,6 @@
         </div>
       </div>
 
-      <!--      visible      -->
-<!--      <div class="col-12">-->
-<!--        <label class="form-label" for="visible">Visible*</label>-->
-<!--        <textarea id="description" class="form-control" th:field="*{visible}"-->
-<!--                  th:errorClass="is-invalid" rows="3"></textarea>-->
-<!--        <div class="invalid-feedback" th:if="${#fields.hasErrors('visible')}">-->
-<!--          <ul>-->
-<!--            <li th:each="err : ${#fields.errors('visible')}" th:text="${err}"></li>-->
-<!--          </ul>-->
-<!--        </div>-->
-<!--      </div>-->
 
       <div class="col-12 my-4">
         <label class="form-label" for="visible">Visibile*</label>
@@ -79,21 +68,6 @@
         </div>
       </div>
 
-
-
-      <!--  url -->
-      <div class="col-12">
-        <label class="form-label" for="url">Url*</label>
-        <input type="text" id="url" class="form-control" th:field="*{url}"
-               th:errorClass="is-invalid">
-
-        <div class="invalid-feedback" th:if="${#fields.hasErrors('url')}">
-          <ul>
-            <li th:each="err : ${#fields.errors('url')}" th:text="${err}"></li>
-          </ul>
-        </div>
-
-      </div>
     </div>
 
 

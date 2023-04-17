@@ -21,15 +21,6 @@ public class PhotoRestController {
     private PhotoService photoService;
 
     // metodo per tutti le photo
-//    public List<Photo> list(@RequestParam(name = "q")Optional<String> search) {
-//
-//        if (search.isPresent()) {
-//            return photoService.getPhotoVisibleTrueAndName(search.get());
-//        }
-//
-//        return photoService.getPhotoVisibleTrue();
-//
-//    }
 
     @GetMapping
     public List<Photo> list (@RequestParam(name = "q") Optional<String> search) {

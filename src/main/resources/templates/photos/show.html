@@ -8,10 +8,10 @@
 <body>
 
   <header>
-    <th:block th:replace="/fragments/navbar :: navbar('books', '', false)"></th:block>
+    <th:block th:replace="/fragments/navbar :: navbar('photos', '', false)"></th:block>
   </header>
 
-  <main>
+  <main class="mt-4">
 
     <div class="container" th:object="${photo}">
 
@@ -37,40 +37,47 @@
           <hr/>
 
           <h4>Visibile</h4>
-          <p th:text="*{visible}"></p>
+          <p th:text="${photo.visible == true} ? 'Si' : 'No' "></p>
 
           <hr/>
 
         </div>
 
-        <div class="col-6">
-          <div class="h-100 position-relative">
+            <!-- book cover image -->
+            <div class="col-6">
+              <div class="h-100 position-relative">
+                <a th:href="@{|/photos/*{id}/cover|}"
+                   class="btn btn-primary rounded-circle position-absolute bottom-0 end-0">
+                  <i class="fa-solid fa-pen-to-square"></i>
+                </a>
+                <div
+                        th:if="${photo.url == null || photo.url.content == null}"
+                        class="bg-secondary h-100 fs-1 d-flex justify-content-center align-items-center"
+                >
+                  <i class="fa-solid fa-image"></i>
+                </div>
 
-            <div class="btn btn-primary rounded-circle position-absolute bottom-0 end-0">
-              <i class="fa-solid fa-pen-to-square"></i>
-            </div>
+                <div th:unless="${photo.url == null || photo.url.content == null}">
+                  <img class="w-100 h-100" th:src="@{|/files/${photo.url.id}|}" alt="photo cover">
+                </div>
 
-            <div th:if="${photo.url}" class="bg-secondary h-100 fs-1 d-flex justify-content-center align-items-center">
-              <i class="fa-solid fa-image"></i>
-            </div>
-
-            <div th:unless="${photo.url}">
-              <img class="img-fluid" th:src="{photo.url}" alt="book cover">
+              </div>
             </div>
           </div>
-        </div>
+    </div>
 
-      </div>
 
 
       <!-- categories -->
 
-      <h2>Categorie</h2>
-      <div>
-        <p th:each="ing : ${categories}" th:text="${ing.name}"></p>
-      </div>
+      <div class="container">
+        <h2>Categorie</h2>
+        <div>
+          <p class="badge text-bg-primary" th:each="ing : ${categories}" th:text="${ing.name}"></p>
+        </div>
 
-      <div th:if="${photo.categories.size() == 0 || photo.categories == null}">Ancora nessuna categoria</div>
+        <div th:if="${photo.categories.size() == 0 || photo.categories == null}">Ancora nessuna categoria</div>
+      </div>
     </div>
   </main>
 

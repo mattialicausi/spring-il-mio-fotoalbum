@@ -23,9 +23,9 @@ public class Photo {
     @Lob
     private String description;
 
-    @URL(message = "Il path deve essere valido")
-    @NotEmpty(message = "Url deve essere inserito")
-    private String url;
+//    @URL(message = "Il path deve essere valido")
+//    @NotEmpty(message = "Url deve essere inserito")
+//    private String url;
 
     @NotNull(message = "true o false")
     private boolean visible;
@@ -41,6 +41,9 @@ public class Photo {
     @JsonIgnore
     private Set<Category> categories;
 
+    @OneToOne(mappedBy = "photo")
+    private Image url;
+
     // costruttori
 
 
@@ -48,11 +51,11 @@ public class Photo {
         super();
     }
 
-    public Photo(String title, String description, String url, boolean visible) {
+    public Photo(String title, String description, boolean visible) {
 
         this.title = title;
         this.description = description;
-        this.url = url;
+//        this.url = url;
         this.visible = visible;
 
     }
@@ -84,13 +87,13 @@ public class Photo {
         this.description = description;
     }
 
-    public String getUrl() {
-        return url;
-    }
-
-    public void setUrl(String url) {
-        this.url = url;
-    }
+//    public String getUrl() {
+//        return url;
+//    }
+//
+//    public void setUrl(String url) {
+//        this.url = url;
+//    }
 
     public boolean getVisible() {
         return visible;
@@ -106,5 +109,13 @@ public class Photo {
 
     public void setCategories(Set<Category> categories) {
         this.categories = categories;
+    }
+
+    public Image getUrl() {
+        return url;
+    }
+
+    public void setUrl(Image url) {
+        this.url = url;
     }
 }

@@ -19,7 +19,7 @@
   <main>
 
     <div class="container">
-      <h1>Foto
+      <h1 class="my-4">Foto
         <a
                 th:href="@{/photos/create}"
                 class="btn btn-primary rounded-circle"
@@ -29,19 +29,12 @@
           <i class="fa-solid fa-plus"></i></a>
       </h1>
 
-      <!-- leggo la variabile message (flashAttribute) -->
-
-<!--      <th:block th:if="${message}">-->
-<!--        <div th:replace="~{/fragments/messages :: alert(${message.type}, ${message.text})}"></div>-->
-<!--      </th:block>-->
-
       <!-- books table only if list is not empty -->
       <table class="table" th:if="${photoList.size() > 0}">
         <thead>
         <tr>
           <th>Titolo</th>
           <th>Descrizione</th>
-          <th>URL</th>
           <th>Visibile</th>
           <th></th>
         </tr>
@@ -50,10 +43,9 @@
         <tr th:each="photo : ${photoList}" th:object="${photo}">
           <td th:text="*{title}"></td>
           <td th:text="*{description}"></td>
-          <td th:text="*{url}"></td>
           <td th:text="${photo.visible == true} ? 'Si' : 'No' "></td>
           <td>
-            <a th:href="@{|/photos/*{id}|}" class="btn btn-primary btn-sm" title="detail" sec:authorize="hasAuthority('ADMIN')">Vai alla show</a>
+            <a th:href="@{|/photos/*{id}|}" class="btn btn-primary btn-sm" title="detail">Dettagli</a>
             <a th:href="@{|/photos/edit/${photo.id}|}"
                sec:authorize="hasAuthority('ADMIN')"
                class="btn btn-primary btn-sm" title="edit"><i
@@ -71,6 +63,7 @@
         </tr>
         </tbody>
       </table>
+
       <!-- alert only if list is empty -->
       <th:block th:unless="${photoList.size() > 0}">
         <div th:replace="~{/fragments/messages :: alert('INFO', 'La lista è vuota')}"></div>
