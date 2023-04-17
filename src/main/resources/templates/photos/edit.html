@@ -74,18 +74,6 @@
                 </div>
             </div>
 
-
-            <!--  url -->
-            <div class="col-12">
-                <label class="form-label" for="url">Url*</label>
-                <input type="text" id="url" class="form-control" th:field="*{url}" th:errorClass="is-invalid">
-                <div class="invalid-feedback" th:if="${#fields.hasErrors('url')}">
-                    <ul>
-                        <li th:each="err : ${#fields.errors('url')}" th:text="${err}"></li>
-                    </ul>
-                </div>
-            </div>
-
         </div>
 
 

@@ -35,7 +35,6 @@
         <tr>
           <th>Titolo</th>
           <th>Descrizione</th>
-          <th>URL</th>
           <th>Visibile</th>
           <th></th>
         </tr>
@@ -44,10 +43,9 @@
         <tr th:each="photo : ${photoList}" th:object="${photo}">
           <td th:text="*{title}"></td>
           <td th:text="*{description}"></td>
-          <td th:text="*{url}"></td>
           <td th:text="${photo.visible == true} ? 'Si' : 'No' "></td>
           <td>
-            <a th:href="@{|/photos/*{id}|}" class="btn btn-primary btn-sm" title="detail">Vai alla show</a>
+            <a th:href="@{|/photos/*{id}|}" class="btn btn-primary btn-sm" title="detail">Dettagli</a>
             <a th:href="@{|/photos/edit/${photo.id}|}"
                sec:authorize="hasAuthority('ADMIN')"
                class="btn btn-primary btn-sm" title="edit"><i
