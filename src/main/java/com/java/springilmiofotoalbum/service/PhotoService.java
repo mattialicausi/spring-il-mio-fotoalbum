@@ -2,13 +2,17 @@ package com.java.springilmiofotoalbum.service;
 
 import com.java.springilmiofotoalbum.exceptions.PhotoNotFoundException;
 import com.java.springilmiofotoalbum.model.Category;
+import com.java.springilmiofotoalbum.model.Image;
+import com.java.springilmiofotoalbum.model.ImageForm;
 import com.java.springilmiofotoalbum.model.Photo;
 import com.java.springilmiofotoalbum.repository.CategoryRepository;
+import com.java.springilmiofotoalbum.repository.ImageRepository;
 import com.java.springilmiofotoalbum.repository.PhotoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.HashSet;
@@ -24,6 +28,9 @@ public class PhotoService {
     PhotoRepository photoRepository;
     @Autowired
     private CategoryRepository categoryRepository;
+
+    @Autowired
+    ImageRepository imageRepository;
 
     // metodi
 
@@ -130,6 +137,29 @@ public class PhotoService {
         }
 
         return formCategories;
+    }
+
+    // metodo per aggiornare img
+
+    public Image updateCover(Integer photoId, ImageForm imageForm) throws PhotoNotFoundException, IOException {
+
+        Photo photo = getById(photoId);
+
+        // delete old image if exists
+        Image oldImage = photo.getUrl();
+
+        if (oldImage != null) {
+            photo.setUrl(null); // disconnect image from book
+            oldImage.setPhoto(null); // disconnect book from image
+            imageRepository.delete(oldImage);
+        }
+
+        // create new image
+        Image newImage = new Image();
+        newImage.setPhoto(photo);
+        newImage.setContent(imageForm.getMultipartFile().getBytes());
+        // persist
+        return imageRepository.save(newImage);
     }
 
 

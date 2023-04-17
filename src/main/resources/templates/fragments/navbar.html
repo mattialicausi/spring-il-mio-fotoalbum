@@ -27,10 +27,12 @@
 
 
         </ul>
-        <form class="d-flex" role="search">
+
+        <form class="d-flex" role="search" th:if="${showSearch}"  method="get" th:action="@{/photos}">
           <input class="form-control me-2" type="search" placeholder="Cerca" name="q" th:value="${keyword}" aria-label="Search">
           <button class="btn btn-outline-success" type="submit">Cerca</button>
         </form>
+
         <div class="ms-3">
           <span sec:authentication="name"></span>
           <a class="btn btn-info" th:href="@{/logout}">Logout</a>

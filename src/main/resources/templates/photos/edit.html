@@ -8,15 +8,15 @@
 
 <body>
 
-<header class="container">
-    <th:block th:replace="/fragments/navbar :: navbar('edit', '', true)"></th:block>
+<header>
+    <th:block th:replace="/fragments/navbar :: navbar('edit', '', false)"></th:block>
 </header>
 
 
 
 <div class="container">
 
-    <h1>Modifica la foto</h1>
+    <h1 class="my-4">Modifica la foto</h1>
 
     <form id="new-foto-form" class="row gy-3 mt-3" method="post" th:object="${photo}" th:action="@{|/photos/edit/${photo.id}|}">
 
@@ -54,17 +54,6 @@
                 </div>
             </div>
 
-            <!--      visible      -->
-<!--            <div class="col-12">-->
-<!--                <label class="form-label" for="visible">Visible*</label>-->
-<!--                <textarea id="visible" class="form-control" th:field="*{visible}"-->
-<!--                          th:errorClass="is-invalid" rows="3"></textarea>-->
-<!--                <div class="invalid-feedback" th:if="${#fields.hasErrors('visible')}">-->
-<!--                    <ul>-->
-<!--                        <li th:each="err : ${#fields.errors('visible')}" th:text="${err}"></li>-->
-<!--                    </ul>-->
-<!--                </div>-->
-<!--            </div>-->
 
             <div class="col-12 my-4">
                 <label class="form-label" for="visible">Visibile*</label>

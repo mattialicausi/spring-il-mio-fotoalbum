@@ -2,6 +2,7 @@ package com.java.springilmiofotoalbum.controller;
 
 import com.java.springilmiofotoalbum.exceptions.PhotoNotFoundException;
 import com.java.springilmiofotoalbum.model.AlertMessage;
+import com.java.springilmiofotoalbum.model.ImageForm;
 import com.java.springilmiofotoalbum.model.Photo;
 import com.java.springilmiofotoalbum.model.User;
 import com.java.springilmiofotoalbum.repository.UserRepository;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
@@ -177,6 +179,39 @@ public class PhotoController {
                     new AlertMessage(AlertMessage.AlertMessageType.ERROR, "Foto con id " + id + " non trovata"));
         }
         return "redirect:/photos";
+    }
+
+    @GetMapping("/{id}/cover")
+    public String editCover(@PathVariable Integer id, Model model) {
+        try {
+            Photo photo = photoService.getById(id);
+            // creo un oggetto ImageForm e lo setto come attributo del model
+            ImageForm imageForm = new ImageForm();
+            imageForm.setPhoto(photo);
+            model.addAttribute("imageForm", imageForm);
+            return "/photos/cover";
+        } catch (PhotoNotFoundException e) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @PostMapping("/{id}/cover/save")
+    public String doEditCover(@PathVariable Integer id, @Valid @ModelAttribute ImageForm imageForm,
+                              BindingResult bindingResult,
+                              RedirectAttributes redirectAttributes) {
+        if (bindingResult.hasErrors()) {
+            return "/photos/cover";
+        }
+        // persisto il file dell'immagine
+        try {
+            photoService.updateCover(id, imageForm);
+        } catch (IOException e) {
+            redirectAttributes.addFlashAttribute("message",
+                    new AlertMessage(AlertMessage.AlertMessageType.ERROR, "Impossibile aggiornare la foto"));
+        } catch (PhotoNotFoundException e) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        }
+        return "redirect:/photos/" + Integer.toString(id);
     }
 
 }
