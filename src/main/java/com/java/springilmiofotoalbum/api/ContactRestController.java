@@ -20,7 +20,7 @@ public class ContactRestController {
     @Autowired
     private ContactService contactService;
 
-    @PostMapping("/create")
+    @PostMapping
     public Contact getContactList(@Valid @RequestBody Contact contact) {
 
         try {

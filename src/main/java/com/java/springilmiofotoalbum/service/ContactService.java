@@ -7,7 +7,9 @@ import com.java.springilmiofotoalbum.model.Photo;
 import com.java.springilmiofotoalbum.repository.ContactRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 import java.util.Optional;
@@ -32,7 +34,7 @@ public class ContactService {
         if (result.isPresent()) {
             return result.get();
         } else {
-            throw new RuntimeException(Integer.toString(id));
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
     }
 
